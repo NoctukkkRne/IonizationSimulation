@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<materials>
+
+  <isotope N="1" Z="1" name="H1">
+    <atom unit="g/mole" value="1.00782503081372"/>
+  </isotope>
+  <isotope N="2" Z="1" name="H2">
+    <atom unit="g/mole" value="2.01410199966617"/>
+  </isotope>
+  <element name="Hydrogen">
+    <fraction n="0.999885" ref="H1"/>
+    <fraction n="0.000115" ref="H2"/>
+  </element>
+
+  <isotope N="12" Z="6" name="C12">
+    <atom unit="g/mole" value="12.0"/>
+  </isotope>
+  <element name="Carbon">
+    <fraction n="1.0" ref="C12"/>
+  </element>
+  <isotope N="14" Z="7" name="N14">
+    <atom unit="g/mole" value="14.0031"/>
+  </isotope>
+  <isotope N="15" Z="7" name="N15">
+    <atom unit="g/mole" value="15.0001"/>
+  </isotope>
+  <element name="Nitrogen">
+    <fraction n="0.99632" ref="N14"/>
+    <fraction n="0.00368" ref="N15"/>
+  </element>
+
+  <isotope N="16" Z="8" name="O16">
+    <atom unit="g/mole" value="15.9949"/>
+  </isotope>
+  <isotope N="17" Z="8" name="O17">
+    <atom unit="g/mole" value="16.9991"/>
+  </isotope>
+  <isotope N="18" Z="8" name="O18">
+    <atom unit="g/mole" value="17.9992"/>
+  </isotope>
+  <element name="Oxygen">
+    <fraction n="0.99757" ref="O16"/>
+    <fraction n="0.00038" ref="O17"/>
+    <fraction n="0.00205" ref="O18"/>
+  </element>
+
+  <isotope N="28" Z="14" name="Si28">
+    <atom unit="g/mole" value="27.9769265350"/>
+  </isotope>
+  <isotope N="29" Z="14" name="Si29">
+    <atom unit="g/mole" value="28.9764946653"/>
+  </isotope>
+  <isotope N="30" Z="14" name="Si30">
+    <atom unit="g/mole" value="29.973770137"/>
+  </isotope>
+  <element name="Silicon">
+    <fraction n="0.92223" ref="Si28"/>
+    <fraction n="0.04685" ref="Si29"/>
+    <fraction n="0.03092" ref="Si30"/>
+  </element>
+
+  <isotope N="32" Z="16" name="S32">
+    <atom unit="g/mole" value="32.066"/>
+  </isotope>
+  <element name="Sulfur">
+    <fraction n="1.0" ref="S32"/>
+  </element>
+
+
+</materials>

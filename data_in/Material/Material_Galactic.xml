@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<define>
+  <matrix name="RINDEX_Galactic" coldim="2" values=
+    "2.034*eV       1
+    4.136*eV        1"/>
+</define>
+
+
+<materials>
+
+  <material name="Material_Galactic">
+    <property name="RINDEX" ref="RINDEX_Galactic"/>
+    <T unit="K" value="2.73"/>
+    <D unit="kg/m3" value="1.0e-22"/>
+    <fraction n="1.0" ref="Hydrogen"/>
+  </material>
+
+</materials>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE gdml[
+  <!ENTITY _ELEMENTS_ SYSTEM "../Material/Elements.xml">
+  <!ENTITY _MATERIAL_GALACTIC_ SYSTEM "../Material/Material_Galactic.xml">
+  <!ENTITY _MATERIAL_AIR_ SYSTEM "../Material/Material_Air.xml">
+  <!ENTITY _MATERIAL_ACRYLIC_ SYSTEM "../Material/Material_Acrylic.xml">
+  <!ENTITY _MATERIAL_WATER_ SYSTEM "../Material/Material_Water.xml">
+  <!ENTITY _MATERIAL_LAB0_ SYSTEM "../Material/Material_LAB0.xml">
+  <!ENTITY _MATERIAL_LAB1_ SYSTEM "../Material/Material_LAB1.xml">
+  <!ENTITY _MATERIAL_QUARTZ_ SYSTEM "../Material/Material_Quartz.xml">
+]>
+
+
+<gdml>
+
+
+  &_ELEMENTS_;
+  &_MATERIAL_GALACTIC_;
+  &_MATERIAL_AIR_;
+  &_MATERIAL_ACRYLIC_;
+  &_MATERIAL_WATER_;
+  &_MATERIAL_LAB0_;
+  &_MATERIAL_LAB1_;
+  &_MATERIAL_QUARTZ_;
+
+
+  <define>
+
+    <matrix name="REFLECTIVITY_BlackSurface" coldim="2" values=
+      "2.034*eV       0.0
+      6.136*eV        0.0"/>
+
+  </define>
+
+
+  <solids>
+
+    <box name="SolidVolume_World" x="2000" y="2000" z="2000" lunit="mm"/>
+    <box name="SolidVolume_Environment" x="2000" y="2000" z="2000" lunit="mm"/>
+    <box name="SolidVolume_LiquidMain" x="146" y="296" z="353" lunit="mm"/>
+    <box name="SolidVolume_LiquidSurface" x="400" y="400" z="15" lunit="mm"/>
+    <box name="SolidVolume_TankMain" x="166" y="316" z="373" lunit="mm"/>
+    <tube name="SolidVolume_TankTube" rmin="0" rmax="26" deltaphi="360" z="50" lunit="mm" aunit="deg"/>
+    <tube name="SolidVolume_CavityInTube" rmin="0" rmax="21" deltaphi="360" z="50" lunit="mm" aunit="deg"/>
+    <tube name="SolidVolume_LiquidInTube" rmin="0" rmax="21" deltaphi="360" z="40" lunit="mm" aunit="deg"/>
+    <tube name="SolidVolume_AirInTank" rmin="0" rmax="21" deltaphi="360" z="10" lunit="mm" aunit="deg"/>
+    <tube name="SolidVolume_CouplerMain" rmin="0" rmax="45" deltaphi="360" z="5.02" lunit="mm" aunit="deg"/>
+    <tube name="SolidVolume_TopCouplerStep" rmin="0" rmax="40" deltaphi="360" z="10.02" lunit="mm" aunit="deg"/>
+    <tube name="SolidVolume_BottomCouplerStep" rmin="0" rmax="40" deltaphi="360" z="5.02" lunit="mm" aunit="deg"/>
+    <box name="SolidVolume_Telescope1" x="166" y="158" z="10" lunit="mm"/>
+    <box name="SolidVolume_Telescope2" x="166" y="158" z="10" lunit="mm"/>
+    <box name="SolidVolume_Telescope3" x="166" y="158" z="10" lunit="mm"/>
+    <box name="SolidVolume_Telescope4" x="166" y="158" z="10" lunit="mm"/>
+    <box name="SolidVolume_Telescope5" x="166" y="316" z="10" lunit="mm"/>
+    <box name="SolidVolume_Telescope6" x="166" y="316" z="10" lunit="mm"/>
+    <tube name="SolidVolume_TopPMT" rmin="0" rmax="45" deltaphi="360" z="60" lunit="mm" aunit="deg"/>
+    <tube name="SolidVolume_BottomPMT" rmin="0" rmax="40" deltaphi="360" z="60" lunit="mm" aunit="deg"/>
+
+    <union name="SolidVolume_TopCoupler">
+      <first ref="SolidVolume_CouplerMain"/>
+      <second ref="SolidVolume_TopCouplerStep"/>
+      <position x="0" y="0" z="-7.5" unit="mm"/>
+    </union>
+    <union name="SolidVolume_BottomCoupler">
+      <first ref="SolidVolume_CouplerMain"/>
+      <second ref="SolidVolume_BottomCouplerStep"/>
+      <position x="0" y="0" z="-5" unit="mm"/>
+    </union>
+    <subtraction name="SolidVolume_LiquidInTank">
+      <first ref="SolidVolume_LiquidMain"/>
+      <second ref="SolidVolume_LiquidSurface"/>
+      <rotation x="-2" y="1" unit="deg"/>
+      <position x="0" y="0" z="178.0"/>
+    </subtraction>
+    <union name="SolidVolume_LiquidTemp1">
+      <first ref="SolidVolume_LiquidInTank"/>
+      <second ref="SolidVolume_LiquidInTube"/>
+      <position x="-51" y="-126" z="176.5+40/2-10" unit="mm"/>
+    </union>
+    <union name="SolidVolume_TankOverAll">
+      <first ref="SolidVolume_TankMain"/>
+      <second ref="SolidVolume_TankTube"/>
+      <position x="-51" y="-126" z="176.5+50/2" unit="mm"/>
+    </union>
+    <subtraction name="SolidVolume_TankTemp">
+      <first ref="SolidVolume_TankOverAll"/>
+      <second ref="SolidVolume_LiquidInTank"/>
+    </subtraction>
+    <subtraction name="SolidVolume_TankTemp1">
+      <first ref="SolidVolume_TankTemp"/>
+      <second ref="SolidVolume_CavityInTube"/>
+      <position x="-51" y="-126" z="176.5+50/2-10"/>
+    </subtraction>
+    <subtraction name="SolidVolume_LiquidTemp2">
+      <first ref="SolidVolume_LiquidTemp1"/>
+      <second ref="SolidVolume_TopCoupler"/>
+      <position x="0" y="-73" z="176.5+5/2+5" unit="mm"/>
+    </subtraction>
+    <subtraction name="SolidVolume_Liquid">
+      <first ref="SolidVolume_LiquidTemp2"/>
+      <second ref="SolidVolume_BottomCoupler"/>
+      <position x="0" y="-73" z="-176.5+5/2-5" unit="mm"/>
+    </subtraction>
+    <subtraction name="SolidVolume_TankTemp2">
+      <first ref="SolidVolume_TankTemp1"/>
+      <second ref="SolidVolume_TopCoupler"/>
+      <position x="0" y="-73" z="176.5+5/2+5"/>
+    </subtraction>
+    <subtraction name="SolidVolume_Tank">
+      <first ref="SolidVolume_TankTemp2"/>
+      <second ref="SolidVolume_BottomCoupler"/>
+      <position x="0" y="-73" z="-176.5+5/2-5"/>
+    </subtraction>
+
+    <opticalsurface name="Property_BlackSurface" model="unified" finish="ground" type="dielectric_dielectric">
+      <property name="REFLECTIVITY" ref="REFLECTIVITY_BlackSurface"/>
+    </opticalsurface>
+
+  </solids>
+
+
+  <structure>
+
+    <volume name="LogicalVolume_Liquid">
+      <materialref ref="Material_LAB0"/>
+      <solidref ref="SolidVolume_Liquid"/>
+    </volume>
+    <volume name="LogicalVolume_Tank">
+      <materialref ref="Material_BlackAcrylic"/>
+      <solidref ref="SolidVolume_Tank"/>
+    </volume>
+    <volume name="LogicalVolume_AirInTank">
+      <materialref ref="Material_Air"/>
+      <solidref ref="SolidVolume_AirInTank"/>
+    </volume>
+    <volume name="LogicalVolume_TopCoupler">
+      <materialref ref="Material_WhiteAcrylic"/>
+      <solidref ref="SolidVolume_TopCoupler"/>
+    </volume>
+    <volume name="LogicalVolume_BottomCoupler">
+      <materialref ref="Material_WhiteAcrylic"/>
+      <solidref ref="SolidVolume_BottomCoupler"/>
+    </volume>
+    <volume name="LogicalVolume_TopPMT">
+      <materialref ref="Material_Galactic"/>
+      <solidref ref="SolidVolume_TopPMT"/>
+    </volume>
+    <volume name="LogicalVolume_BottomPMT">
+      <materialref ref="Material_Galactic"/>
+      <solidref ref="SolidVolume_BottomPMT"/>
+    </volume>
+    <volume name="LogicalVolume_Telescope1">
+      <materialref ref="Material_WhiteAcrylic"/>
+      <solidref ref="SolidVolume_Telescope1"/>
+    </volume>
+    <volume name="LogicalVolume_Telescope2">
+      <materialref ref="Material_WhiteAcrylic"/>
+      <solidref ref="SolidVolume_Telescope2"/>
+    </volume>
+    <volume name="LogicalVolume_Telescope3">
+      <materialref ref="Material_WhiteAcrylic"/>
+      <solidref ref="SolidVolume_Telescope3"/>
+    </volume>
+    <volume name="LogicalVolume_Telescope4">
+      <materialref ref="Material_WhiteAcrylic"/>
+      <solidref ref="SolidVolume_Telescope4"/>
+    </volume>
+    <volume name="LogicalVolume_Telescope5">
+      <materialref ref="Material_WhiteAcrylic"/>
+      <solidref ref="SolidVolume_Telescope5"/>
+    </volume>
+    <volume name="LogicalVolume_Telescope6">
+      <materialref ref="Material_WhiteAcrylic"/>
+      <solidref ref="SolidVolume_Telescope6"/>
+    </volume>
+
+    <volume name="LogicalVolume_Environment">
+      <materialref ref="Material_Air"/>
+      <solidref ref="SolidVolume_Environment"/>
+
+      <physvol name="PhysicalVolume_Liquid">
+        <volumeref ref="LogicalVolume_Liquid"/>
+        <position x="0" y="0" z="0"/>
+      </physvol>
+      <physvol name="PhysicalVolume_Tank">
+        <volumeref ref="LogicalVolume_Tank"/>
+        <position x="0" y="0" z="0"/>
+      </physvol>
+      <physvol name="PhysicalVolume_AirInTank">
+        <volumeref ref="LogicalVolume_AirInTank"/>
+        <position x="-51" y="-126" z="176.5+10/2-10+40"/>
+      </physvol>
+      <physvol name="PhysicalVolume_TopCoupler">
+        <volumeref ref="LogicalVolume_TopCoupler"/>
+        <position x="0" y="-73" z="176.5+5/2+5"/>
+      </physvol>
+      <physvol name="PhysicalVolume_BottomCoupler">
+        <volumeref ref="LogicalVolume_BottomCoupler"/>
+        <position x="0" y="-73" z="-176.5+5/2-5"/>
+      </physvol>
+
+      <physvol name="PhysicalVolume_TopPMT">
+        <volumeref ref="LogicalVolume_TopPMT"/>
+        <position x="0" y="-73" z="186.5+60/2+0.01"/>
+      </physvol>
+      <physvol name="PhysicalVolume_BottomPMT">
+        <volumeref ref="LogicalVolume_BottomPMT"/>
+        <position x="0" y="-73" z="-186.5-60/2-0.01"/>
+      </physvol>
+      <physvol name="PhysicalVolume_Telescope1">
+        <volumeref ref="LogicalVolume_Telescope1"/>
+        <position x="0" y="79" z="300"/>
+      </physvol>
+      <physvol name="PhysicalVolume_Telescope2">
+        <volumeref ref="LogicalVolume_Telescope2"/>
+        <position x="0" y="79" z="220"/>
+      </physvol>
+      <physvol name="PhysicalVolume_Telescope3">
+        <volumeref ref="LogicalVolume_Telescope3"/>
+        <position x="0" y="79" z="-220"/>
+      </physvol>
+      <physvol name="PhysicalVolume_Telescope4">
+        <volumeref ref="LogicalVolume_Telescope4"/>
+        <position x="0" y="79" z="-300"/>
+      </physvol>
+      <physvol name="PhysicalVolume_Telescope5">
+        <volumeref ref="LogicalVolume_Telescope5"/>
+        <position x="-176" y="0" z="-300"/>
+      </physvol>
+      <physvol name="PhysicalVolume_Telescope6">
+        <volumeref ref="LogicalVolume_Telescope6"/>
+        <position x="176" y="0" z="-300"/>
+      </physvol>
+    </volume>
+
+    <volume name="Logical_World">
+      <materialref ref="Material_Galactic"/>
+      <solidref ref="SolidVolume_World"/>
+
+      <physvol name="PhysicalVolume_Environment">
+        <volumeref ref="LogicalVolume_Environment"/>
+        <position x="0" y="0" z="0" unit="mm"/>
+      </physvol>
+    </volume>
+
+    <bordersurface name="Surface_Telescope12Environment" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Telescope1"/>
+      <physvolref ref="PhysicalVolume_Environment"/>
+    </bordersurface>
+    <bordersurface name="Surface_Environment2Telescope1" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Environment"/>
+      <physvolref ref="PhysicalVolume_Telescope1"/>
+    </bordersurface>
+    <bordersurface name="Surface_Telescope22Environment" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Telescope2"/>
+      <physvolref ref="PhysicalVolume_Environment"/>
+    </bordersurface>
+    <bordersurface name="Surface_Environment2Telescope2" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Environment"/>
+      <physvolref ref="PhysicalVolume_Telescope2"/>
+    </bordersurface>
+    <bordersurface name="Surface_Telescope32Environment" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Telescope3"/>
+      <physvolref ref="PhysicalVolume_Environment"/>
+    </bordersurface>
+    <bordersurface name="Surface_Environment2Telescope3" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Environment"/>
+      <physvolref ref="PhysicalVolume_Telescope3"/>
+    </bordersurface>
+    <bordersurface name="Surface_Telescope42Environment" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Telescope4"/>
+      <physvolref ref="PhysicalVolume_Environment"/>
+    </bordersurface>
+    <bordersurface name="Surface_Environment2Telescope4" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Environment"/>
+      <physvolref ref="PhysicalVolume_Telescope4"/>
+    </bordersurface>
+    <bordersurface name="Surface_Telescope52Environment" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Telescope5"/>
+      <physvolref ref="PhysicalVolume_Environment"/>
+    </bordersurface>
+    <bordersurface name="Surface_Environment2Telescope5" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Environment"/>
+      <physvolref ref="PhysicalVolume_Telescope5"/>
+    </bordersurface>
+    <bordersurface name="Surface_Telescope62Environment" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Telescope6"/>
+      <physvolref ref="PhysicalVolume_Environment"/>
+    </bordersurface>
+    <bordersurface name="Surface_Environment2Telescope6" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Environment"/>
+      <physvolref ref="PhysicalVolume_Telescope6"/>
+    </bordersurface>
+    <bordersurface name="Surface_TopPMT2Environment" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_TopPMT"/>
+      <physvolref ref="PhysicalVolume_Environment"/>
+    </bordersurface>
+    <bordersurface name="Surface_Environment2TopPMT" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Environment"/>
+      <physvolref ref="PhysicalVolume_TopPMT"/>
+    </bordersurface>
+    <bordersurface name="Surface_BottomPMT2Environment" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_BottomPMT"/>
+      <physvolref ref="PhysicalVolume_Environment"/>
+    </bordersurface>
+    <bordersurface name="Surface_Environment2BottomPMT" surfaceproperty="Property_BlackSurface">
+      <physvolref ref="PhysicalVolume_Environment"/>
+      <physvolref ref="PhysicalVolume_BottomPMT"/>
+    </bordersurface>
+
+  </structure>
+
+
+  <setup name="Default" version="1.0">
+      <world ref="Logical_World"/>
+  </setup>
+
+
+</gdml>
+

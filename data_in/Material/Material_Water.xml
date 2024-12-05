@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<define>
+
+  <matrix name="RINDEX_Water" coldim="2" values=
+    "5.916*eV       1.36733
+    5.647*eV        1.36639
+    5.522*eV        1.36577
+    5.177*eV        1.36360
+    4.437*eV        1.35714
+    3.882*eV        1.35134
+    3.451*eV        1.34663
+    3.106*eV        1.34290
+    3.067*eV        1.34248
+    2.833*eV        1.34004
+    2.515*eV        1.33687
+    2.268*eV        1.33457
+    2.143*eV        1.33346
+    1.981*eV        1.33210
+    1.941*eV        1.33178
+    1.827*eV        1.33088
+    1.726*eV        1.33013
+    1.635*eV        1.32948"/>
+  <matrix name="ABSLENGTH_Water" coldim="2" values=
+    "3.687*eV       526.316*m
+    3.313*eV        689.655*m
+    3.068*eV        359.712*m
+    2.792*eV        146.843*m
+    2.627*eV        109.769*m"/>
+
+</define>
+
+
+<materials>
+
+  <material name="Material_Water" state="solid">
+    <property name="RINDEX" ref="RINDEX_Water"/>
+    <property name="ABSLENGTH" ref="ABSLENGTH_Water"/>
+    <T unit="K" value="293.15"/>
+    <D unit="g/cm3" value="1"/>
+    <fraction n="0.112097669256382" ref="Hydrogen"/>
+    <fraction n="0.887902330743618" ref="Oxygen"/>
+  </material>
+
+</materials>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE gdml[
+  <!ENTITY _ELEMENTS_ SYSTEM "../Material/Elements.xml">
+  <!ENTITY _MATERIAL_GALACTIC_ SYSTEM "../Material/Material_Galactic.xml">
+  <!ENTITY _MATERIAL_AIR_ SYSTEM "../Material/Material_Air.xml">
+  <!ENTITY _MATERIAL_ACRYLIC_ SYSTEM "../Material/Material_Acrylic.xml">
+  <!ENTITY _MATERIAL_WATER_ SYSTEM "../Material/Material_Water.xml">
+  <!ENTITY _MATERIAL_LAB0_ SYSTEM "../Material/Material_LAB0.xml">
+  <!ENTITY _MATERIAL_LAB1_ SYSTEM "../Material/Material_LAB1.xml">
+  <!ENTITY _MATERIAL_QUARTZ_ SYSTEM "../Material/Material_Quartz.xml">
+]>
+
+
+<gdml>
+
+
+  &_ELEMENTS_;
+  &_MATERIAL_GALACTIC_;
+  &_MATERIAL_AIR_;
+  &_MATERIAL_ACRYLIC_;
+  &_MATERIAL_WATER_;
+  &_MATERIAL_LAB0_;
+  &_MATERIAL_LAB1_;
+  &_MATERIAL_QUARTZ_;
+
+
+  <solids>
+
+    <box name="SolidVolume_World" x="60" y="60" z="60" lunit="mm"/>
+    <box name="SolidVolume_Box" x="50" y="50" z="50" lunit="mm"/>
+
+  </solids>
+
+
+  <structure>
+
+    <volume name="LogicalVolume_Box">
+      <materialref ref="Material_Water"/>
+      <solidref ref="SolidVolume_Box"/>
+    </volume>
+
+    <volume name="Logical_World">
+      <materialref ref="Material_Galactic"/>
+      <solidref ref="SolidVolume_World"/>
+
+      <physvol name="PhysicalVolume_Box">
+        <volumeref ref="LogicalVolume_Box"/>
+        <position x="0" y="0" z="0" unit="mm"/>
+      </physvol>
+    </volume>
+
+
+  </structure>
+
+
+  <setup name="Default" version="1.0">
+      <world ref="Logical_World"/>
+  </setup>
+
+
+</gdml>
+

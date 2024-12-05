@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<define>
+
+  <matrix name="RINDEX_Air" coldim="2" values=
+    "2.034*eV       1
+    4.136*eV        1"/>
+
+</define>
+
+
+<materials>
+
+  <material name="Material_Air" state="gas">
+    <property name="RINDEX" ref="RINDEX_Air"/>
+    <T unit="K" value="293.15"/>
+    <D unit="g/cm3" value="0.00129"/>
+    <fraction n="0.7" ref="Nitrogen"/>
+    <fraction n="0.3" ref="Oxygen"/>
+  </material>
+
+</materials>

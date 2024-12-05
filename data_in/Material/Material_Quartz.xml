@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<define>
+
+    <matrix name="RINDEX_Quartz" coldim="2" values=
+    "6.888010*eV    1.688442
+    5.955052*eV     1.637966
+    5.244678*eV     1.609926
+    4.685721*eV     1.592346
+    4.234433*eV     1.580452
+    3.862436*eV     1.571964
+    3.550521*eV     1.565660
+    3.285220*eV     1.560829
+    3.056809*eV     1.557029
+    2.858096*eV     1.553976
+    2.683640*eV     1.551477
+    2.529257*eV     1.549397
+    2.391670*eV     1.547642
+    2.268280*eV     1.546141
+    2.156997*eV     1.544841
+    2.056123*eV     1.543704
+    1.964262*eV     1.542698
+    1.880258*eV     1.541800
+    1.803144*eV     1.540991
+    1.732107*eV     1.540255
+    1.666454*eV     1.539581
+    1.605597*eV     1.538958
+    1.549028*eV     1.538379
+    1.496309*eV     1.537836
+    1.447061*eV     1.537324"/>
+  <?ABSLENGTH_Quartz is copyed from ABSLENGTH_Water, not precise?>
+  <matrix name="ABSLENGTH_Quartz" coldim="2" values=
+    "3.687*eV       526.316*m
+    3.313*eV        689.655*m
+    3.068*eV        359.712*m
+    2.792*eV        146.843*m
+    2.627*eV        109.769*m"/>
+
+</define>
+
+
+<materials>
+
+  <material name="Material_Quartz" state="solid">
+    <property name="RINDEX" ref="RINDEX_Quartz"/>
+    <T unit="K" value="293.15"/>
+    <D unit="g/cm3" value="2.65"/>
+    <composite n="1" ref="Silicon"/>
+    <composite n="2" ref="Oxygen"/>
+  </material>
+
+</materials>
