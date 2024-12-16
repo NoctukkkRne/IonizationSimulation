@@ -16,29 +16,29 @@ void MyTrackingAction::PostUserTrackingAction(const G4Track *vfTrack) {
   const G4Track *fTrack = vfTrack;
 
   G4int aEventID = fRunManager->GetCurrentEvent()->GetEventID();
-  G4int aParticleID = fTrack->GetTrackID();
+  G4int aTrackID = fTrack->GetTrackID();
   G4String aParticleName = fTrack->GetParticleDefinition()->GetParticleName();
-  G4double aX = fTrack->GetPosition()[0];
-  G4double aY = fTrack->GetPosition()[1];
-  G4double aZ = fTrack->GetPosition()[2];
-  G4double aPx = fTrack->GetMomentum()[0];
-  G4double aPy = fTrack->GetMomentum()[1];
-  G4double aPz = fTrack->GetMomentum()[2];
+  G4double aPositionX = fTrack->GetPosition()[0];
+  G4double aPositionY = fTrack->GetPosition()[1];
+  G4double aPositionZ = fTrack->GetPosition()[2];
+  G4double aMomentumX = fTrack->GetMomentum()[0];
+  G4double aMomentumY = fTrack->GetMomentum()[1];
+  G4double aMomentumZ = fTrack->GetMomentum()[2];
   G4double aBeginKineticEnergy = fTrack->GetVertexKineticEnergy();
   G4double aEndKineticEnergy = fTrack->GetKineticEnergy();
 
   fAnalysisManager->FillNtupleIColumn(0, 0, aEventID);
-  fAnalysisManager->FillNtupleIColumn(0, 1, aParticleID);
+  fAnalysisManager->FillNtupleIColumn(0, 1, aTrackID);
   fAnalysisManager->FillNtupleSColumn(0, 2, aParticleName);
-  fAnalysisManager->FillNtupleDColumn(0, 3, aX / mm);
-  fAnalysisManager->FillNtupleDColumn(0, 4, aY / mm);
-  fAnalysisManager->FillNtupleDColumn(0, 5, aZ / mm);
-  fAnalysisManager->FillNtupleDColumn(0, 6, aPx / MeV);
-  fAnalysisManager->FillNtupleDColumn(0, 7, aPy / MeV);
-  fAnalysisManager->FillNtupleDColumn(0, 8, aPz / MeV);
-  fAnalysisManager->FillNtupleDColumn(0, 9, aBeginKineticEnergy / MeV);
-  fAnalysisManager->FillNtupleDColumn(0, 10, aEndKineticEnergy / MeV);
-  fAnalysisManager->FillNtupleIColumn(0, 11, aSecondariesNumber / MeV);
+  fAnalysisManager->FillNtupleDColumn(0, 3, aPositionX);
+  fAnalysisManager->FillNtupleDColumn(0, 4, aPositionY);
+  fAnalysisManager->FillNtupleDColumn(0, 5, aPositionZ);
+  fAnalysisManager->FillNtupleDColumn(0, 6, aMomentumX);
+  fAnalysisManager->FillNtupleDColumn(0, 7, aMomentumY);
+  fAnalysisManager->FillNtupleDColumn(0, 8, aMomentumZ);
+  fAnalysisManager->FillNtupleDColumn(0, 9, aBeginKineticEnergy);
+  fAnalysisManager->FillNtupleDColumn(0, 10, aEndKineticEnergy);
+  fAnalysisManager->FillNtupleIColumn(0, 11, aSecondariesNumber);
   fAnalysisManager->AddNtupleRow(0);
 }
 

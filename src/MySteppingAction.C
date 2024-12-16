@@ -31,9 +31,9 @@ void MySteppingAction::UserSteppingAction(const G4Step *vfStep) {
   fAnalysisManager->FillNtupleIColumn(1, 1, aTrackID);
   fAnalysisManager->FillNtupleSColumn(1, 2, aParticleName);
   fAnalysisManager->FillNtupleSColumn(1, 3, aProcessName);
-  fAnalysisManager->FillNtupleDColumn(1, 4, aPreKineticEnergy / MeV);
-  fAnalysisManager->FillNtupleDColumn(1, 5, aPostKineticEnergy / MeV);
-  fAnalysisManager->FillNtupleDColumn(1, 6, aEnergyDeposit / MeV);
+  fAnalysisManager->FillNtupleDColumn(1, 4, aPreKineticEnergy);
+  fAnalysisManager->FillNtupleDColumn(1, 5, aPostKineticEnergy);
+  fAnalysisManager->FillNtupleDColumn(1, 6, aEnergyDeposit);
   fAnalysisManager->FillNtupleIColumn(1, 7, aSecondariesNumberInCurrentStep);
   fAnalysisManager->AddNtupleRow(1);
 
@@ -50,14 +50,14 @@ void MySteppingAction::UserSteppingAction(const G4Step *vfStep) {
     fAnalysisManager->FillNtupleIColumn(2, 0, aEventID);
     fAnalysisManager->FillNtupleIColumn(2, 1, aTrackID);
     fAnalysisManager->FillNtupleSColumn(2, 2, aProcessName);
-    fAnalysisManager->FillNtupleDColumn(2, 3, aTime / ns);
-    fAnalysisManager->FillNtupleDColumn(2, 4, aPositionX / nm);
-    fAnalysisManager->FillNtupleDColumn(2, 5, aPositionY / nm);
-    fAnalysisManager->FillNtupleDColumn(2, 6, aPositionZ / nm);
-    fAnalysisManager->FillNtupleDColumn(2, 7, aPreKineticEnergy / eV);
-    fAnalysisManager->FillNtupleDColumn(2, 8, aMomentumX / eV);
-    fAnalysisManager->FillNtupleDColumn(2, 9, aMomentumY / eV);
-    fAnalysisManager->FillNtupleDColumn(2, 10, aMomentumZ / eV);
+    fAnalysisManager->FillNtupleDColumn(2, 3, aTime);
+    fAnalysisManager->FillNtupleDColumn(2, 4, aPositionX);
+    fAnalysisManager->FillNtupleDColumn(2, 5, aPositionY);
+    fAnalysisManager->FillNtupleDColumn(2, 6, aPositionZ);
+    fAnalysisManager->FillNtupleDColumn(2, 7, aPreKineticEnergy);
+    fAnalysisManager->FillNtupleDColumn(2, 8, aMomentumX);
+    fAnalysisManager->FillNtupleDColumn(2, 9, aMomentumY);
+    fAnalysisManager->FillNtupleDColumn(2, 10, aMomentumZ);
     fAnalysisManager->AddNtupleRow(2);
   }
 }
