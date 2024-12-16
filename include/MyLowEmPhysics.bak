@@ -1,0 +1,24 @@
+#ifndef _MYLOWEMPHYSICS_H_
+#define _MYLOWEMPHYSICS_H_
+
+#include "G4EmDNABuilder.hh"
+#include "G4EmDNAPhysics.hh"
+#include "G4SystemOfUnits.hh"
+
+// ions
+#include "G4Alpha.hh"
+#include "G4DNAGenericIonsManager.hh"
+
+// utilities
+#include "G4BuilderType.hh"
+#include "G4EmBuilder.hh"
+#include "G4EmParameters.hh"
+#include "G4PhysListUtil.hh"
+#include "G4PhysicsListHelper.hh"
+
+// factory
+#include "G4PhysicsConstructorFactory.hh"
+//
+G4_DECLARE_PHYSCONSTR_FACTORY(G4LowEmPhysics);
+
+#endif

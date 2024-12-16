@@ -30,15 +30,15 @@ void MyTrackingAction::PostUserTrackingAction(const G4Track *vfTrack) {
   fAnalysisManager->FillNtupleIColumn(0, 0, aEventID);
   fAnalysisManager->FillNtupleIColumn(0, 1, aParticleID);
   fAnalysisManager->FillNtupleSColumn(0, 2, aParticleName);
-  fAnalysisManager->FillNtupleDColumn(0, 3, aX);
-  fAnalysisManager->FillNtupleDColumn(0, 4, aY);
-  fAnalysisManager->FillNtupleDColumn(0, 5, aZ);
-  fAnalysisManager->FillNtupleDColumn(0, 6, aPx);
-  fAnalysisManager->FillNtupleDColumn(0, 7, aPy);
-  fAnalysisManager->FillNtupleDColumn(0, 8, aPz);
-  fAnalysisManager->FillNtupleDColumn(0, 9, aBeginKineticEnergy);
-  fAnalysisManager->FillNtupleDColumn(0, 10, aEndKineticEnergy);
-  fAnalysisManager->FillNtupleIColumn(0, 11, aSecondariesNumber);
+  fAnalysisManager->FillNtupleDColumn(0, 3, aX / mm);
+  fAnalysisManager->FillNtupleDColumn(0, 4, aY / mm);
+  fAnalysisManager->FillNtupleDColumn(0, 5, aZ / mm);
+  fAnalysisManager->FillNtupleDColumn(0, 6, aPx / MeV);
+  fAnalysisManager->FillNtupleDColumn(0, 7, aPy / MeV);
+  fAnalysisManager->FillNtupleDColumn(0, 8, aPz / MeV);
+  fAnalysisManager->FillNtupleDColumn(0, 9, aBeginKineticEnergy / MeV);
+  fAnalysisManager->FillNtupleDColumn(0, 10, aEndKineticEnergy / MeV);
+  fAnalysisManager->FillNtupleIColumn(0, 11, aSecondariesNumber / MeV);
   fAnalysisManager->AddNtupleRow(0);
 }
 

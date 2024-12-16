@@ -27,6 +27,7 @@ void MyRunAction::BeginOfRunAction(const G4Run *vfRun) {
   fAnalysisManager->CreateNtupleIColumn(1, "EventID");
   fAnalysisManager->CreateNtupleIColumn(1, "TrackID");
   fAnalysisManager->CreateNtupleSColumn(1, "ParticleName");
+  fAnalysisManager->CreateNtupleSColumn(1, "ProcessName");
   fAnalysisManager->CreateNtupleDColumn(1, "PreKineticEnergy");
   fAnalysisManager->CreateNtupleDColumn(1, "PostKineticEnergy");
   fAnalysisManager->CreateNtupleDColumn(1, "EnergyDeposit");
@@ -36,6 +37,7 @@ void MyRunAction::BeginOfRunAction(const G4Run *vfRun) {
   fAnalysisManager->CreateNtuple("ElectronSample", "ElectronSample");
   fAnalysisManager->CreateNtupleIColumn(2, "EventID");
   fAnalysisManager->CreateNtupleIColumn(2, "TrackID");
+  fAnalysisManager->CreateNtupleSColumn(2, "ProcessName");
   fAnalysisManager->CreateNtupleDColumn(2, "Time");
   fAnalysisManager->CreateNtupleDColumn(2, "PositionX");
   fAnalysisManager->CreateNtupleDColumn(2, "PositionY");

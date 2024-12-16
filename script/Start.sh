@@ -3,7 +3,7 @@
 make clean
 make -j8
 
-./bin/Simulation -g ./data_in/Geometry/50mmBox.xml -e 5.0 -r 99 -n 10 -o ./data_out/Output.root
+./bin/Simulation -g ./data_in/Geometry/50mmBox.xml -e 1.0e-3 -r 99 -n 1000 -o ./data_out/Output.root
 #./bin/Simulation -g ./data_in/Geometry/50mmBox.xml -e 5.0 -r 01 -n 100 -o ./data_out/Output_01.root
 #./bin/Simulation -g ./data_in/Geometry/50mmBox.xml -e 5.0 -r 02 -n 100 -o ./data_out/Output_02.root
 #./bin/Simulation -g ./data_in/Geometry/50mmBox.xml -e 5.0 -r 03 -n 100 -o ./data_out/Output_03.root

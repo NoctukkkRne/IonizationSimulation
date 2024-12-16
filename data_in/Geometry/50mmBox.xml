@@ -37,7 +37,7 @@
   <structure>
 
     <volume name="LogicalVolume_Box">
-      <materialref ref="Material_Water"/>
+      <materialref ref="G4_WATER"/>
       <solidref ref="SolidVolume_Box"/>
     </volume>
 
