@@ -2,7 +2,7 @@
 
 MyPhysicsList::MyPhysicsList() {
   // RegisterPhysics(new G4EmStandardPhysics());
-  RegisterPhysics(new G4EmDNAPhysics());
+  RegisterPhysics(new G4EmDNAPhysics_option2());
   //  RegisterPhysics(new G4OpticalPhysics());
 }
 

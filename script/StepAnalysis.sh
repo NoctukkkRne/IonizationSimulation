@@ -3,4 +3,4 @@
 #make clean
 make -j8
 
-./bin/Analysis
+./bin/StepAnalysis
