@@ -6,26 +6,32 @@
 #include "Rootneed.h"
 #include "jinpingStyle.h"
 
-const Int_t NBins = 1000;
-const Double_t Emin = 0.0 * eV;
-const Double_t Emax = 50.0 * eV;
-// const Double_t Emin = 0.0 * keV;
-// const Double_t Emax = 10.0 * keV;
-
 int main() {
   jinpingStyle();
 
   TCanvas *cv = new TCanvas("cv", "", 700, 500);
 
-  TH1D *h1dR2 = new TH1D("h1dR2", "", 100, 0.0, 150e-12);
-  h1dR2->GetXaxis()->SetTitle("R^{2} [mm^{2}]");
-  h1dR2->GetYaxis()->SetTitle("Counts");
-  h1dR2->SetLineColor(kBlue);
+  TH2D *h2dSampleXY =
+      new TH2D("h2dSampleXY", "", 1000, -100.0e-6 * mm, 100.0e-6 * mm, 1000,
+               -100.0e-6 * mm, 100.0e-6 * mm);
+  h2dSampleXY->GetXaxis()->SetTitle("X [mm]");
+  h2dSampleXY->GetYaxis()->SetTitle("Y [mm]");
 
-  TH1D *h1dKineticEnergy = new TH1D("h1dKineticEnergy", "", NBins, Emin, Emax);
-  h1dKineticEnergy->GetXaxis()->SetTitle("KineticEnergy [MeV]");
-  h1dKineticEnergy->GetYaxis()->SetTitle("Counts");
-  h1dKineticEnergy->SetLineColor(kBlue);
+  TH1D *h1dSampleR = new TH1D("h1dSampleR", "", 1000, 0.0, 100.0e-6 * mm);
+  h1dSampleR->GetXaxis()->SetTitle("R [mm]");
+  h1dSampleR->GetYaxis()->SetTitle("Counts");
+  h1dSampleR->SetLineColor(kBlue);
+
+  TH1D *h1dSampleTime = new TH1D("h1dSampleTime", "", 1000, 0.0, 0.1e-3 * ns);
+  h1dSampleTime->GetXaxis()->SetTitle("Time [ns]");
+  h1dSampleTime->GetYaxis()->SetTitle("Counts");
+  h1dSampleTime->SetLineColor(kBlue);
+
+  TH1D *h1dSampleKineticEnergy =
+      new TH1D("h1dSampleKineticEnergy", "", 1000, 0.0 * eV, 20.0 * eV);
+  h1dSampleKineticEnergy->GetXaxis()->SetTitle("KineticEnergy [MeV]");
+  h1dSampleKineticEnergy->GetYaxis()->SetTitle("Counts");
+  h1dSampleKineticEnergy->SetLineColor(kBlue);
 
   TChain *tcElectronSample = new TChain("ElectronSample");
   tcElectronSample->Add("./data_out/Output.root");
@@ -34,29 +40,43 @@ int main() {
 
   Int_t EventID, TrackID;
   Double_t PositionX, PositionY, PositionZ, MomentumX, MomentumY, MomentumZ,
-      KineticEnergy;
+      KineticEnergy, Time;
+  Char_t ProcessName;
 
   tcElectronSample->SetBranchAddress("EventID", &EventID);
   tcElectronSample->SetBranchAddress("TrackID", &TrackID);
+  tcElectronSample->SetBranchAddress("ProcessName", &ProcessName);
+  tcElectronSample->SetBranchAddress("Time", &Time);
   tcElectronSample->SetBranchAddress("PositionX", &PositionX);
   tcElectronSample->SetBranchAddress("PositionY", &PositionY);
   tcElectronSample->SetBranchAddress("PositionZ", &PositionZ);
+  tcElectronSample->SetBranchAddress("KineticEnergy", &KineticEnergy);
   tcElectronSample->SetBranchAddress("MomentumX", &MomentumX);
   tcElectronSample->SetBranchAddress("MomentumY", &MomentumY);
   tcElectronSample->SetBranchAddress("MomentumZ", &MomentumZ);
-  tcElectronSample->SetBranchAddress("KineticEnergy", &KineticEnergy);
 
   for (Long64_t id = 0; id < tcElectronSample->GetEntries(); ++id) {
     tcElectronSample->GetEntry(id);
 
-    h1dR2->Fill(PositionX * PositionX + PositionY * PositionY);
-    h1dKineticEnergy->Fill(KineticEnergy);
+    h2dSampleXY->Fill(PositionX, PositionY);
+    h1dSampleR->Fill(
+        TMath::Sqrt(PositionX * PositionX + PositionY * PositionY));
+    h1dSampleTime->Fill(Time);
+    h1dSampleKineticEnergy->Fill(KineticEnergy);
   }
 
-  h1dR2->Draw("HIST");
-  cv->SaveAs("./data_out/figure/h1dR2.png");
-  h1dKineticEnergy->Draw("HIST");
-  cv->SaveAs("./data_out/figure/h1dKineticEnergy.png");
+  h2dSampleXY->Draw("colz");
+  cv->SetLogz(1);
+  cv->SaveAs("./data_out/figure/h2dSampleXY.png");
+  h1dSampleR->Draw("HIST");
+  cv->SetLogy(0);
+  cv->SaveAs("./data_out/figure/h1dSampleR.png");
+  h1dSampleTime->Draw("HIST");
+  cv->SetLogy(0);
+  cv->SaveAs("./data_out/figure/h1dSampleTime.png");
+  h1dSampleKineticEnergy->Draw("HIST");
+  cv->SetLogy(1);
+  cv->SaveAs("./data_out/figure/h1dSampleKineticEnergy.png");
 
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
