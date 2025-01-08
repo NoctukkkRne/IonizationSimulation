@@ -28,8 +28,8 @@
 
   <solids>
 
-    <box name="SolidVolume_World" x="60" y="60" z="60" lunit="mm"/>
-    <box name="SolidVolume_Box" x="50" y="50" z="50" lunit="mm"/>
+    <box name="SolidVolume_World" x="1000" y="1000" z="1000" lunit="mm"/>
+    <box name="SolidVolume_Box" x="500" y="500" z="500" lunit="mm"/>
 
   </solids>
 
